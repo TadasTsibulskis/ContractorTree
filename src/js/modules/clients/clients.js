@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class Jobs extends Component {
+class Clients extends Component {
 	render() {
         return (
-            <div>Jobs</div>
+            <div>Clients</div>
         );
 	}
 }
 
-export default Jobs;
+export default Clients;

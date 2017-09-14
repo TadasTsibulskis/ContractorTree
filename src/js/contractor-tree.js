@@ -1,16 +1,46 @@
 import React, { Component } from 'react';
 import '../less/main.css';
 
-import AddJob from './modules/add-job/add-job';
-import Jobs from './modules/jobs/jobs';
+import LoadingIcon from './components/loading-icon';
+import Button from './components/button';
 
 class ContractorTree extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			content: "Hello",
+			loading: true
+		};
+		this.contentChange = this.contentChange.bind(this);
+	}
+
+	componentDidMount() {
+		this.setState({
+			loading: false
+		})
+	}
+
+	contentChange(newContent) {
+		const setContent = newContent ? newContent : <LoadingIcon />
+		this.setState({
+			content: setContent,
+			loading: true
+		})
+	}
+
 	render() {
 		return (
 			<div className="main-app">
-				<AddJob />
-				<Jobs />
-      		</div>
+				<div className="header">
+					<Button action={this.contentChange} buttonText="Add Job" />
+					<Button buttonText="Jobs" />
+					<Button buttonText="Contractors" />
+					<Button buttonText="Clients" />
+				</div>
+				<div className="content">
+					{this.state.loading ? <LoadingIcon /> : this.state.content}
+				</div>
+			</div>
 		);
 	}
 }
