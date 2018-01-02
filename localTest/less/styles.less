@@ -1,0 +1,39 @@
+#ct-main {
+    .ct-header {
+        display: block;
+        width: 100%;
+        height: 100px;
+        background-color: grey;
+    }
+    .ct-filters {
+        display: block;
+        width: 100%;
+        height: 50px;
+        padding: 10px 0;
+    }
+    .ct-sidebar, .ct-view-container {
+        box-sizing: border-box;
+        display: inline-block;
+    }
+    .ct-sidebar {
+        width: 20%;
+        height: 100%;
+        padding: 20px;
+        background-color: #dddddd; 
+    }
+    .ct-view-container {
+        width: 100%;
+        .job-tile-container {
+            display: inline-block;
+            padding: 20px;
+            border: 1px solid black;
+            a {
+                display: block;
+                padding: 10px 0;
+                z-index: 99;
+                color: red;
+                cursor: pointer;
+            }
+        }
+    }
+}

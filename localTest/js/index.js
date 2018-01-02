@@ -10,12 +10,14 @@ export default class ContractorTreeServer extends Component {
     constructor() {
         super();
         this.state = {
+            jobsToDisplay: jobList
         };
     }
     render() {
         return (
-            <div>
-            </div> 
+            <ContractorTree 
+                jobData={this.state.jobsToDisplay}
+            /> 
         );
     }
 }
