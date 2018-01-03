@@ -1,5 +1,5 @@
 import React from 'react';
-import { array, string } from 'prop-types';
+import { array, arrayOf } from 'prop-types';
 
 const resort = (data, param, value) => {
     let array = [];
@@ -13,24 +13,17 @@ const resort = (data, param, value) => {
     return array;
 }
 
-const Sorter = (data, param, value) => {
-    let tileArray = [];
-    switch (param) {
-        case 'alphabetical' :
-            tileArray= resort(data, param, value);
-        case 'region' :
-            tileArray = resort(data, param, value);
-            break;
-        default : 
-            break;
+const Sorter = (data, filters) => {
+    if (filters.length === 0) {
+        return data;
     }
+    let tileArray = [];
     return tileArray;
 }
 
 Sorter.propTypes = {
     data: array.isRequired,
-    param: string.isRequired,
-    value: string.isRequired
+    filters: arrayOf({}).isRequired
 };
 
 export default Sorter;

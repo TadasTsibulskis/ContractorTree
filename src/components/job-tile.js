@@ -1,13 +1,13 @@
 import React from 'react';
 import { func, number, shape, string } from 'prop-types';
 
-const JobTile = ({client, jobDetails, priority, progress, region, resort, startDate}) => {
+const JobTile = ({client, jobDetails, priority, progress, region, setFilter, startDate}) => {
     return (
         <div className="job-tile-container">
             <h2>Client: {client}</h2>
             <div>Priority: {priority}</div>
             <div>Progress: {progress}</div>
-            <a onClick={() => {resort('region', region)}}>Region: {region}</a>
+            <a onClick={() => {setFilter('add', 'region', region)}}>Region: {region}</a>
             <div>Start Date: {startDate.toString()}</div>
         </div>
     );
@@ -19,7 +19,7 @@ JobTile.propTypes = {
     priority: number.isRequired,
     progress: string.isRequired,
     region: string.isRequired,
-    resort: func.isRequired,
+    setFilter: func.isRequired,
     startDate: string.isRequired
 };
 

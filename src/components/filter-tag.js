@@ -1,17 +1,18 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { func, string } from 'prop-types';
 
-const FilterTag = ({param, reset, value}) => {
+const FilterTag = ({param, removeFilter, value}) => {
     return (
-        <div className="filter-tag">
+        <a className="filter-tag" onClick={() => {removeFilter('remove', param, value)}}>
             <span>{param}</span>
             <span>{value}</span>
-        </div>
+        </a>
     );
 }
 
 FilterTag.propTypes = {
     param: string.isRequired, 
+    removeFilter: func.isRequired,
     value: string.isRequired,
 };
 

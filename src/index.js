@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { array, shape } from 'prop-types';
 
-import FilterDisplay from './components/filter';
+import CONSTANTS from './utils/constants';
+import FilterDisplay from './components/filter-display';
 import Header from './components/header';
 import JobTile from './components/job-tile';
 import Sorter from './utils/sorter';
@@ -25,7 +26,7 @@ export default class ContractorTree extends Component {
         const sortedJobData = this.setDefaultSortOrder(this.props.jobData);
         this.setState({
             displayData: sortedJobData
-        })
+        });
     }
 
     setDefaultSortOrder(data) {      
@@ -55,33 +56,33 @@ export default class ContractorTree extends Component {
         );
     }
 
-    resort = (param, value) => {
-        // change display data state here after sending new param to resort component
-        console.log('Resorting', '\nParameter: ' + param, '\nValue: ' + value);
-        if (param === 'reset') {
-            const resetData = this.state.backupData;
-            this.setState({
-                displayData: resetData
-            })
+    setFilter = (type, param, value) => {
+        debugger;
+        let filterArray = this.state.activeFilters;
+
+        switch (type) {
+            case 'add' :
+            console.log('add', param, value);
+            filterArray.push({'param': param, 'value': value});
+            break;
+
+            case 'remove' : 
+            console.log('remove', param, value);
+            break;
+
+            default : 
+            break;
         }
-        const data = this.state.displayData;
-        const newData = Sorter(data, param, value);
-        let filterArray = [];
-        filterArray.push([param, value]);
+        
         this.setState({
-            activeFilters: filterArray,
-            displayData: newData
+            activeFilters: filterArray
         });
     }
 
-    renderTiles(tileData, searchParams) {
-        // send original data array to new component that is in charge of sorting the data according to the param and then 
-        // returning a new array that is in order
+    renderTiles(tileData, filters) {
         let tileArray = [];
-
-        // decide which type of array to fill here, whether it's job tiles or contractor tiles, etc
-        tileData.forEach((data, index) => {
-            // validate data here, including deep check of job details if needed
+        const newData = Sorter(tileData, filters);
+        newData.forEach((data, index) => {
             tileArray.push(
                 <JobTile 
                     client={data.client}
@@ -90,7 +91,7 @@ export default class ContractorTree extends Component {
                     priority={data.priority}
                     progress={data.progress}
                     region={data.region}
-                    resort={this.resort}
+                    setFilter={this.setFilter}
                     startDate={data.startDate}
                 />
             )
@@ -102,9 +103,10 @@ export default class ContractorTree extends Component {
         return (
             <div id="ct-main">
                 <Header />
-                <FilterDisplay filters={this.state.activeFilters} reset={this.resort}/>
+                {/*when filterDisplay is created, it does not get the function passed correctly*/}
+                <FilterDisplay filters={this.state.activeFilters} setFilter={this.setFilter}/>
                 <div className="ct-view-container">
-                        {this.state.displayData.length > 1 ? this.renderTiles(this.state.displayData, 'default') : this.showLoader(false)}
+                        {this.state.displayData.length > 1 ? this.renderTiles(this.state.displayData, this.state.activeFilters) : this.showLoader(false)}
                 </div>
            </div>
         );
