@@ -25,7 +25,8 @@ export default class ContractorTree extends Component {
     componentDidMount() {
         const sortedJobData = this.setDefaultSortOrder(this.props.jobData);
         this.setState({
-            displayData: sortedJobData
+            displayData: sortedJobData,
+            setFilter: this.setFilter
         });
     }
 
@@ -57,26 +58,29 @@ export default class ContractorTree extends Component {
     }
 
     setFilter = (type, param, value) => {
-        debugger;
         let filterArray = this.state.activeFilters;
 
         switch (type) {
             case 'add' :
             console.log('add', param, value);
             filterArray.push({'param': param, 'value': value});
+            this.setState({
+                activeFilters: filterArray
+            });
             break;
 
             case 'remove' : 
             console.log('remove', param, value);
+            const arrayIndex = filterArray.findIndex(d => d.value === value);
+            const newFilterArray = filterArray.slice(arrayIndex, arrayIndex);
+            this.setState({
+                activeFilters: newFilterArray
+            });
             break;
 
             default : 
             break;
-        }
-        
-        this.setState({
-            activeFilters: filterArray
-        });
+        }        
     }
 
     renderTiles(tileData, filters) {
@@ -104,7 +108,7 @@ export default class ContractorTree extends Component {
             <div id="ct-main">
                 <Header />
                 {/*when filterDisplay is created, it does not get the function passed correctly*/}
-                <FilterDisplay filters={this.state.activeFilters} setFilter={this.setFilter}/>
+                <FilterDisplay filters={this.state.activeFilters} removeFilter={this.state.setFilter}/>
                 <div className="ct-view-container">
                         {this.state.displayData.length > 1 ? this.renderTiles(this.state.displayData, this.state.activeFilters) : this.showLoader(false)}
                 </div>

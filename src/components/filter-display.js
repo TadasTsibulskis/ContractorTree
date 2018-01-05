@@ -5,7 +5,6 @@ import FilterTag from './filter-tag';
 
 const renderFilterTags = (filters, removeFilter) => {
     let tagArray = [];
-    console.log(removeFilter);
     filters.forEach((ele) => {
         tagArray.push(<FilterTag param={ele.param} removeFilter={removeFilter} value={ele.value} />);
     });
@@ -21,7 +20,7 @@ const FilterDisplay = ({filters, removeFilter}) => {
 
 FilterDisplay.propTypes = {
     filters: arrayOf({}).isRequired,
-    setFilter: func.isRequired
+    removeFilter: func.isRequired
 };
 
 export default FilterDisplay;
