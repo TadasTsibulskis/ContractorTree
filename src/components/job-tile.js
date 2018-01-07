@@ -5,7 +5,7 @@ const JobTile = ({client, jobDetails, priority, progress, region, setFilter, sta
     return (
         <div className="job-tile-container">
             <h2>Client: {client}</h2>
-            <div>Priority: {priority}</div>
+            <a onClick={() => {setFilter('add', 'priority', priority)}}>priority: {priority}</a>
             <div>Progress: {progress}</div>
             <a onClick={() => {setFilter('add', 'region', region)}}>Region: {region}</a>
             <div>Start Date: {startDate.toString()}</div>

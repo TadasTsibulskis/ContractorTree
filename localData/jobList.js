@@ -22,7 +22,7 @@ export const jobList = [
                 }
             ]
         },
-        priority: 5,
+        priority: 2,
         progress: '25%',
         region: 'Salt Lake',
         sortOrder: 0,

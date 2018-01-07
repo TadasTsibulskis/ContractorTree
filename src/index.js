@@ -62,20 +62,18 @@ export default class ContractorTree extends Component {
 
         switch (type) {
             case 'add' :
-            console.log('add', param, value);
-            filterArray.push({'param': param, 'value': value});
-            this.setState({
-                activeFilters: filterArray
-            });
+                filterArray.push({'param': param, 'value': value});
+                this.setState({
+                    activeFilters: filterArray
+                });
             break;
 
             case 'remove' : 
-            console.log('remove', param, value);
-            const arrayIndex = filterArray.findIndex(d => d.value === value);
-            const newFilterArray = filterArray.slice(arrayIndex, arrayIndex);
-            this.setState({
-                activeFilters: newFilterArray
-            });
+                const arrayIndex = filterArray.findIndex(d => d.value === value);
+                const newFilterArray = filterArray.slice(arrayIndex, arrayIndex);
+                this.setState({
+                    activeFilters: newFilterArray
+                });
             break;
 
             default : 
