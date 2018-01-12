@@ -58,6 +58,7 @@ export default class ContractorTree extends Component {
     }
 
     setFilter = (type, param, value) => {
+        // need check duplicate function, and remove filter currently removes all filters
         let filterArray = this.state.activeFilters;
 
         switch (type) {
